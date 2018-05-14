@@ -20,9 +20,11 @@ class RegisterService
     
  public function createNewUser( $name, $password, $typeofuser ) {
        try {
+          // echo $name,$password,$typeofuser;
            $namedata= ($name != NULL)?"'".mysql_real_escape_string($name)."'":'NULL';
            $passworddata = ($password != NULL)?"'".mysql_real_escape_string($password)."'":'NULL';
         $usertypedata = ($typeofuser != NULL)?"'".mysql_real_escape_string($typeofuser)."'":'NULL';
+         //echo $namedata,$passworddata,$typeofuser;
             $this->openDb();
          mysql_query("INSERT INTO users (username, password, type) VALUES ($namedata, $passworddata, $usertypedata)");
           

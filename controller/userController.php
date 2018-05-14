@@ -1,13 +1,17 @@
 <?php
  require_once 'dashboardController.php';
- require_once 'model/RegisterService.php';
+ require_once 'model/RegisterService.php'; 
+ require_once 'model/LoginService.php';
+ 
 class UserController {
        private $registerService = NULL;
-        
+          private $loginservice = NULL;
     public function __construct() {
         $this->registerService = new RegisterService();
+        $this->loginservice= new LoginService();
+        
     }
-   public function handleRequest() {
+   public function handleRequest(){
    if($_SERVER["REQUEST_METHOD"] == "GET"){
      $method = isset($_GET['method'])?$_GET['method']:NULL;
         try {
@@ -38,12 +42,15 @@ class UserController {
               // $this->register();
             } elseif ( $methodpost == 'login' ) {
                // $this->login();
-            } 
+            } elseif ( $methodpost == 'dologin' ) {
+          $this->doLogin();
+            }
             elseif ( $methodpost == 'doRegister' ) {
                          //echo "do reg";    
 
                 $this->doRegister();
-            }else {
+            }
+            else {
                 $this->showError("Page not found", "Page for operation ".$method." was not found!");
             }
         } catch ( Exception $e ) {
@@ -92,5 +99,29 @@ class UserController {
       
       
    }
+           public  function doLogin(){
+           //echo "POST Login operation";
+            if(isset($_POST['action'])){
+                $name= isset($_POST['username'])?$_POST['username']:NULL;
+                $password= isset($_POST['password'])?$_POST['password']:NULL;
+               // echo $name.$password;
+                $validate= $this->loginservice->dologin($name,$password);
+                //print_r($validate);
+                if ($validate[0]==1 && $validate[1]=='Teacher'){
+                    //header("location: view/TeacherDashboardView.php");
+                    $this->redirect('view/TeacherDashboard.php');
+                }elseif ($validate[0]==1 && $validate[1]=='Student' ) {
+                            $this->redirect('view/StudentDashboard.php'); 
+
+              
+            }else{
+                    echo "Invalid Username/Password";
+  //$fmsg = "Invalid Username/Password";
+ }
+            }
+            }
+             public function redirect($location) {
+        header('Location: '.$location);
+    }
 }
 ?>

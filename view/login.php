@@ -24,8 +24,8 @@
            
             <div class="col-sm-4">
                  <form class="form-signin" method="POST">
-                <input type="hidden" name="action" class="form-control" value="login">
-                <input type="hidden" name="method" class="form-control" value="doRegister">
+           <input type="hidden" name="action" class="form-control" value="login">
+                <input type="hidden" name="method" class="form-control" value="dologin">
                 <h2 class="form-signin-heading">Please Login</h2>
             <div class="form-group">
 		  <!--<span class="input-group-addon" id="basic-addon1">@</span>-->

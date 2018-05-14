@@ -2,7 +2,7 @@
  require_once 'dashboardController.php';
  require_once 'UserController.php';
  require_once 'config.php';
-class HomeController {
+class Test {
       
      private $dashboardController = NULL;
      private $userController = NULL;
@@ -35,14 +35,16 @@ class HomeController {
          }
         else
         {
-         
+                        
      // print_r($_POST);die;
             $postAction = isset($_POST['action'])?$_POST['action']:NULL;
+          
             try {
             if ( $postAction == 'login') {
+              //    echo "test ffff";
                 $this->userController->handleRequest();
             } elseif ( $postAction == 'login' ) {
-             
+                          echo "test ffff";
                 $this->userController->handleRequest();
             } elseif ( $postAction == 'delete' ) {
                 $this->deleteContact();
